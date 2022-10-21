@@ -2,13 +2,44 @@
     <head>
         <meta charset="utf-8">
         <title>Сайт web-студії "Web-Deco"</title>
+        <script src = "js/clock1.js"></script>
+        <script type = "text/javascript">
+            function send()
+            {
+                var valid = true;
+                var elems = document.forms[0].elements;
+                for(var i = 0; i< document.forms[0].length;i++)
+                {
+                    if(elems[i].getAttribute('type')=='text' ||
+                       elems[i].getAttribute('type')=='password'||
+                       elems[i].getAttribute('type')=='email')
+                       {
+                           if(elems[i].value=='')
+                           {
+                              elems[i].style.border = '2px solid red';
+                              valid=false;
+                           }
+                       }
+                }
+                if(!valid)
+                {
+                    alert('Заповніть всі поля ! ! !');
+                    return false;
+                }
+            }
+        </script>
 <style>
     .shadowtext{
         text-shadow: 1px 3px 2px white, 0 0 1em red;
         color : #210042;
         font-size: 2em;
     }
-</style>        
+</style>   
+<script> window.onload = function()
+  {
+    setInterval(clockPainting,1000);
+  }    
+</script> 
     </head>
     <body background="images/bg.jpg">
     <table border="1" align="center" cellpadding="10">
@@ -31,6 +62,7 @@
         </tr>
         <tr>
             <td width="30%" valign="top" >
+            <center><canvas id = "canvas" height ="120" widht = "120"> </center>
             <font size="5" color="navy"><h2>Новини</h2></font>
                 <font size="5">
                     <ul>
