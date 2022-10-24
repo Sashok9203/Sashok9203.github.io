@@ -2,6 +2,16 @@
     <head>
         <meta charset="utf-8">
         <title>Сайт web-студії "Web-Deco"</title>
+        <?php
+         $log_path = 'log.txt';
+         $user_ip = getenv('REMOTE_ADDR');
+         $user_brouser = getenv('HTTP_USER_AGENT');
+         $current_time = date("ymd H:i:s");
+         $log_string = "$user_ip | $user_brouser | $current_time | \r\n";
+         $file = fopen($log_path,"a");
+         fwrite($file,$log_string,strlen($log_string));
+         fclose($file);  
+        ?>
         <script src = "js/clock1.js"></script>
         <script type = "text/javascript">
             function send()
@@ -55,7 +65,7 @@
                 <a href="index.php">Головна</a>&nbsp;&nbsp;
                 <a href="#">Фотогалерея</a>&nbsp;&nbsp;
                 <a href="#">Телефони</a>&nbsp;&nbsp;
-                <a href="#">Статистика</a>&nbsp;&nbsp;
+                <a href="stat.php">Статистика</a>&nbsp;&nbsp;
                 <a href="register.php">Зареєстровані</a>&nbsp;&nbsp;
                 </b></font>
             </td>

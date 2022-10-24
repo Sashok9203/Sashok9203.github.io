@@ -100,17 +100,29 @@
                     <input type="reset" value="Очистити">
                 </p>
                 </form>
-                
                 <hr>
             </td>
             <td width="70%" ><font size="5" color="navy"></font>
-            <h1 align = "center">Дякуємо за реєстрацію !</h1>
+            <h1 align = "center">Хто до нас заходив</h1>
+           <table align = "center" border = "1" widht = "900">
+            <tr>
+                <td align = "center"><b>IP Adress</b></td>
+                <td align = "center"><b>Браузер</b></td>
+                <td align = "center"><b>Дата</b></td>
+            </tr>
             <?php
-               $st = $_POST['name2'] . " ; ". $_POST['name1'] . " ; " . $_POST['email'] . " ; " . $_POST['password'] . "\n";
-               $fp = fopen("baza.txt","a");
-               $test = fwrite($fp,$st);
-               echo "<h2 align = 'center'>Ви ввели : " .  $_POST['name2'] . " ; ". $_POST['name1'] . " ; " . $_POST['email'] . " ; " . $_POST['password'] . "</h2>";
+            $data = file("log.txt");
+            foreach($data as $line)
+            {
+                $trs = explode("|",$line);
+                echo '<tr>';
+                echo '<td>' . $trs[0] . '</td>';
+                echo '<td>' . $trs[1] . '</td>';
+                echo '<td>' . $trs[2] . '</td>';
+                echo '<tr>';
+            }
             ?>
+           </table>
              <font size="4"> <a href="index.php" >Повернутися на головну</a></font>
             </td>
         </tr>
