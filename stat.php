@@ -53,7 +53,7 @@
             <td colspan="2">
                 <font size="4"><b>
                 <a href="index.php">Головна</a>&nbsp;&nbsp;
-                <a href="#">Фотогалерея</a>&nbsp;&nbsp;
+                <a href="fgalery.php">Фотогалерея</a>&nbsp;&nbsp;
                 <a href="#">Телефони</a>&nbsp;&nbsp;
                 <a href="stat.php">Статистика</a>&nbsp;&nbsp;
                 <a href="register.php">Зареєстровані</a>&nbsp;&nbsp;
