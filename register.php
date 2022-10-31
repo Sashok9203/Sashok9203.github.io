@@ -54,7 +54,7 @@
                 <font size="4"><b>
                 <a href="index.php">Головна</a>&nbsp;&nbsp;
                 <a href="fgalery.php">Фотогалерея</a>&nbsp;&nbsp;
-                <a href="#">Телефони</a>&nbsp;&nbsp;
+                <a href="tel.php">Телефони</a>&nbsp;&nbsp;
                 <a href="stat.php">Статистика</a>&nbsp;&nbsp;
                 <a href="register.php">Зареєстровані</a>&nbsp;&nbsp;
                 </b></font>

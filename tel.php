@@ -2,6 +2,16 @@
     <head>
         <meta charset="utf-8">
         <title>Сайт web-студії "Web-Deco"</title>
+        <?php
+         $log_path = 'log.txt';
+         $user_ip = getenv('REMOTE_ADDR');
+         $user_brouser = getenv('HTTP_USER_AGENT');
+         $current_time = date("ymd H:i:s");
+         $log_string = "$user_ip | $user_brouser | $current_time | \r\n";
+         $file = fopen($log_path,"a");
+         fwrite($file,$log_string,strlen($log_string));
+         fclose($file);  
+        ?>
         <script src = "js/clock1.js"></script>
         <script type = "text/javascript">
             function send()
@@ -34,12 +44,12 @@
         color : #210042;
         font-size: 2em;
     }
-</style>      
-  <script> window.onload = function()
+</style>   
+<script> window.onload = function()
   {
     setInterval(clockPainting,1000);
-  }
-  </script>
+  }    
+</script> 
     </head>
     <body background="images/bg.jpg">
     <table border="1" align="center" cellpadding="10">
@@ -79,7 +89,7 @@
                 <form action="forma.php" method="post" onsubmit="return send();">
                 <table align="center" bgcolor="#ccc">
                     <tr>
-                        <td><font color="green">Прізвище</font>: </td>
+                        <td><font color="green">Прізвище </font>: </td>
                         <td><input type="text" size="10" maxlength="20" name="name2"></td>
                     </tr>  
                     <tr>
@@ -102,28 +112,56 @@
                 </form>
                 <hr>
             </td>
-            <td width="70%" ><font size="5" color="navy"></font>
-            <h1 align = "center">Хто до нас заходив</h1>
-           <table align = "center" border = "1" widht = "900">
-            <tr>
-                <td align = "center"><b>IP Adress</b></td>
-                <td align = "center"><b>Браузер</b></td>
-                <td align = "center"><b>Дата</b></td>
-            </tr>
-            <?php
-            $data = file("log.txt");
-            foreach($data as $line)
-            {
-                $trs = explode("|",$line);
-                echo '<tr>';
-                echo '<td>' . $trs[0] . '</td>';
-                echo '<td>' . $trs[1] . '</td>';
-                echo '<td>' . $trs[2] . '</td>';
-                echo '<tr>';
-            }
-            ?>
-           </table>
-             <font size="4"> <a href="index.php" >Повернутися на головну</a></font>
+            <td>
+            
+            <table cellPadding=0 celSpacing=0 align = "center">
+                <tr>
+                    <td align = center height = 80 vAlign = center widht = 365>
+                        <font color = navy size=+3>
+                            <b>Teлефлнний довідник м.Рівне</b>
+                    </td>       
+                </tr>
+                <tr>
+                    <td width = 470>
+                       <center>
+                        <form action="rez.php" method="post">
+                        <table align="center" bgcolor="#ccc">
+                    <tr>
+                        <td><font color="green">Номер тел. </font>: </td>
+                        <td><input type="text" size="10" maxlength="20" name="ntel"></td>
+                    </tr>  
+                    <tr>
+                        <td><font color="green">Прізвище</font>: </td>
+                        <td><input type="text" size="10" maxlength="20" name="fio"></td>
+                    </tr> 
+                    <tr>
+                        <td><font color="green">Вулиця</font>: </td>
+                        <td><select name = "street">
+                             <?php
+                               
+                               
+                               
+
+
+
+
+                             ?>
+                            </select>
+                        </td>  
+                    </tr> 
+                    <tr>
+                        <td><font color="green">Будинок</font>: </td>
+                        <td><input type="text" size="10" maxlength="20" name="ndom"></td>
+                    </tr>    
+                </table>
+                        <br><input type = "submit" Name = "sub1" Value = "Пошук">
+                        </center>
+                        </form>
+            </table>
+                      
+
+
+
             </td>
         </tr>
         <tr>
