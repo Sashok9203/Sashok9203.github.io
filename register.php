@@ -61,7 +61,7 @@
             </td>
         </tr>
         <tr>
-            <td width="30%" valign="top" >
+            <td width="20%" valign="top" >
             <center><canvas id = "canvas" height ="120" widht = "120"> </center>
             <font size="5" color="navy"><h2>Новини</h2></font>
                 <font size="5">
@@ -102,7 +102,7 @@
                 </form>
                 <hr>
             </td>
-            <td width="70%" ><font size="5" color="navy"></font>
+            <td width="60%" ><font size="5" color="navy"></font>
             <h1 align = "center">Список зареєстрованих</h1>
            <table align = "center" border = "1" widht = "600">
             <tr>

@@ -7,7 +7,7 @@ function clockPainting() {
     var ctx = document.getElementById("canvas").getContext("2d");
     ctx.save();// помещаем текущий контекст в стэк
 
-    ctx.clearRect(0,0,150,150);
+    ctx.clearRect(0,0,200,200);
     ctx.translate(75, 75);
     ctx.scale(0.4,0.4);
     ctx.rotate(-Math.PI/2);

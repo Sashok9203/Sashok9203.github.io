@@ -113,68 +113,123 @@
                 <hr>
             </td>
             <td width="60%">
+            <?php
+            $db_conn = mysqli_connect("localhost", "root", "1", "tel09");
+            mysqli_set_charset($db_conn, 'utf8');
             
-            <table cellPadding=0 celSpacing=0 align = "center">
+            $rez = "SELECT * FROM tel09 WHERE ";
+            $stre = "SELECT * FROM street WHERE ";
+            
+            $r1 = 0;
+            $num = 0;
+            
+            $ntel = $_POST['ntel'];
+            $fio = $_POST['fio'];
+            $street = $_POST['street'];
+            $ndom = $_POST['ndom'];
+            
+            if ($fio != ""):
+            $fio = strtoupper($fio);
+                 $r1 = 1;
+                 $rez = "$rez a_name LIKE '$fio%'";
+            endif;
+            
+            if ($street != 0):
+              if ($r1 == 1):
+                 $rez = "$rez AND";
+              endif;
+                 $r1 = 1;
+                 $rez = " $rez street = $street";
+            endif;
+            
+            if ($ndom != ""):
+              if ($r1 == 1):
+                 $rez = "$rez AND";
+              endif;
+                 $r1 = 1;
+                 $rez = " $rez house LIKE '$ndom%'";
+            endif;
+            
+            if ($ntel != ""):
+            $ntel = str_replace("-", "", $ntel);
+              if ($r1 == 1):
+                 $rez = "$rez AND";
+              endif;
+                 $r1 = 1;
+                 $rez = " $rez phone LIKE '%$ntel%'";
+            endif;
+            ?>
+            <table cellPadding=0 celSpacing=0 border = 0 align = "center">
+                <body>
                 <tr>
-                    <td align = center height = 80 vAlign = center widht = 365>
-                        <font color = navy size=+3>
-                            <b>Teлефонний довідник м.Рівне</b>
-                    </td>       
+                  <td>
+                    <table cellPadding=0 celSpacing=0 border = 0 widht = "100%">
+                        <body>
+                            <tr>
+                               <td align = "middle" height = 52 widht = 600>
+                                 <b><i> <font face = "Arial" size=+2>
+                                 Teлефонний довідник м.Рівне </font></i></b>
+                               </td>       
+                            </tr>
+                        </body>
+                    </table>
+                  </td>
                 </tr>
-                <tr>
-                    <td width = 470>
-                       <center>
-                        <form action="rez.php" method="post">
-                        <table>
-                    <tr>
-                        <td><b>Номер тел.:&nbsp;&nbsp;&nbsp;<b></td>
-                        <td><input type="text" size="9"  name="ntel"></td>
-                    </tr>  
-                    <tr>
-                        <td><b>Прізвище:&nbsp;&nbsp;&nbsp;<b></td>
-                        <td><input type="text" size="19"  name="fio"></td>
-                    </tr> 
-                    <tr>
-                        <td><b>Вулиця:&nbsp;&nbsp;&nbsp;<b></td>
-                        <td><select name = "street">
-                             <?php
-                              $db_conn = mysqli_connect("localhost", "root", "1", "tel09");
-                              mysqli_set_charset($db_conn, 'utf8'); 
-                              $date = Date('m/d/Y'); 
-                              $rez = "SELECT * FROM street"; 
-                              if (!$db_conn):
-                                echo "<strong>";
-                                echo "База даних тимчасово не працює.<br>";
-                                echo "<hr></strong>";
-                            else:
-                                $result = mysqli_query($db_conn,$rez) or die("Query failed1");
-                                $num = mysqli_num_rows($result);
-                            endif;
-                            $i = 0;$s = "";
-                            echo "<option value = ''>";
-                            while( $line = mysqli_fetch_array($result,MYSQLI_NUM))
-                            {
-                               $n = $line[0];
-                               $s = $line[1];
-                               echo "<option value = '$n'>" . $s;
-                               $i++;
-                            }
-
-
-                             ?>
-                            </select>
-                        </td>  
-                    </tr> 
-                    <tr>
-                        <td><b>Будинок:&nbsp;&nbsp;&nbsp;<b></td>
-                        <td><input type="text" size="6"  name="ndom"></td>
-                    </tr>    
-                </table>
-                        <br><input type = "submit" Name = "sub1" Value = "Пошук">
-                        </center>
-                        </form>
+                </body>
             </table>
-          </td>
+         <center><b><font size =+1>Результат пошуку телефону &nbsp;&nbsp;&nbsp;&nbsp;<? echo "$ntel"?>
+        </font></b></center>      
+         <?php
+         if (!$db_conn):
+            echo "<strong>";
+            echo "База даних тимчасово не працює.<br>";
+            echo "<hr></strong>";
+        else:
+               if ($r1 == 1):
+                $result = mysqli_query($db_conn,$rez) or die("Query failed1");
+                $num = mysqli_num_rows($result);
+               endif;
+        endif;
+        
+               $i = 0;
+            if ($num == 0 OR $r1 == 0){
+            echo "<hr><center><strong>";
+            echo "Книга не мiстить жодного запису.<br>";
+            echo "</strong></center>";
+        } else {
+        
+        $i = 0;
+            if ($num > 500){
+                        $num = 500;
+            echo "<hr><center><strong>";
+            echo "Ви не вiрно вказали данi для запиту.<br>";
+            echo "Кiлькiсть записiв перевищує 500.<br>";
+            echo "</strong></center>";}
+            else  {
+            echo "<hr><center><strong>";
+            echo "Знайдено $num записів.<br>";
+            echo "</strong></center>";}
+            }
+                echo "<CENTER><table border=3 color=red><tr>";
+                echo "<th><b><font size=+1 color=#006600>Прiзвище</font></b></th>";
+                echo "<th><b><font size=+1 color=#006600>Телефон</font></b></th>";
+                echo "<th><b><font size=+1 color=#006600>Адреса</font></b></th>";
+                
+         while ($line = mysqli_fetch_array($result, MYSQLI_NUM)){
+        
+        echo "<tr><td><b>&nbsp;&nbsp;&nbsp;&nbsp;".$line[1];
+        echo "</b></td><td><b>&nbsp;&nbsp;&nbsp;&nbsp;".$line[0];
+        
+        $st1="SELECT * FROM street WHERE n_street=".$line[2];
+        $res_st = mysqli_query($db_conn,$st1) or die("Query failed");
+        $lst = mysqli_fetch_array($res_st, MYSQLI_NUM);
+        
+        echo "</b></td><td><b>&nbsp;&nbsp;&nbsp;&nbsp;".$lst[1]."&nbsp;&nbsp;буд.".$line[3]." кв. ".$line[4];
+        
+        }
+        echo "</b></table></CENTER>";
+         ?>             
+        </td>
         </tr>
         <tr>
             <td background="images/bg-3.jpg" colspan="2" valign="middle" height="90">
